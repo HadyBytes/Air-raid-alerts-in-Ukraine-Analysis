@@ -1,0 +1,32 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# --- Virtual environments ---
+venv/
+.venv/
+env/
+.env
+
+# --- Freshly downloaded data (regenerated on every run; not committed) ---
+# A small committed sample lives under examples/ instead.
+data/
+*.csv
+!examples/*.csv
+!raion_to_oblast_map.csv
+
+# --- Generated reports (regenerated on every run) ---
+output/
+*.html
+!examples/*.html
+
+# --- OS / editor cruft ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

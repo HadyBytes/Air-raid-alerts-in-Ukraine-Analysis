@@ -1,0 +1,7 @@
+# Air raid alerts time-series analysis — pinned dependencies.
+# Install with:  pip install -r requirements.txt
+# Requires Python >= 3.11 (uses the standard-library `zoneinfo` for timezones).
+
+pandas==3.0.3      # data loading, cleaning, time-series aggregation
+plotly==6.8.0      # interactive charts, embedded into one self-contained HTML report
+requests==2.34.2   # downloading the fresh dataset from GitHub
