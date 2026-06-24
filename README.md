@@ -1,5 +1,8 @@
 # Air-raid alerts in Ukraine — time-series analysis
-💬 Read [`conversation_log.md`](the Claude shat log)
+
+> [!IMPORTANT] 
+> Read [`the Claude shat log`](conversation_log.md)
+ 
 A single Python script that downloads the official air-raid alert dataset for Ukraine and
 produces one self-contained, interactive HTML report answering how the **number**, **timing**
 (time of day and day of the week) and **duration** of alerts have changed over time — both
