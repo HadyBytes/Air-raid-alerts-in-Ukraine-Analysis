@@ -87,7 +87,7 @@ administrative hierarchy, and — when an "all-clear" message never arrives — 
 +1 hour rather than leaving it open. All source timestamps are stored in **UTC**.
 
 Government references that document the underlying alert system are listed in
-[`DATA_SOURCE.md`](DATA_SOURCE.md).
+[`docs/DATA_SOURCE.md`](docs/DATA_SOURCE.md).
 
 ### Columns
 
@@ -124,10 +124,9 @@ regimes, with direct oblast-level messages always taking precedence:
    reporting) and re-includes de-occupied ones. At least **2** raions must be active for the
    quorum to fire, so a lone reporter can never carry an oblast.
 
-Direct oblast-level alerts always count as full oblast coverage in both regimes. The
-raion→oblast crosswalk used here is committed for audit as
-[`raion_to_oblast_map.csv`](raion_to_oblast_map.csv) (human-readable notes in
-[`raion_to_oblast_map.md`](raion_to_oblast_map.md)).
+Direct oblast-level alerts always count as full oblast coverage in both regimes. Each raion
+row in the source data already carries its parent `oblast`, so no external crosswalk is
+needed — raions are grouped under their oblast directly from that column.
 
 This produces a clean set of non-overlapping oblast-alert intervals, which all charts are built
 from. The tunable constants (`QUORUM_THRESHOLD`, `ACTIVE_WINDOW_DAYS`, `OBLAST_PRECEDENCE_DAYS`,
@@ -152,10 +151,11 @@ grid-resolution tolerance. The transparency note is reproduced inside the report
 ```
 air_raid_analysis.py        # the whole pipeline: download -> analyse -> report
 requirements.txt            # pinned dependencies
-raion_to_oblast_map.csv     # auditable raion -> oblast crosswalk
-raion_to_oblast_map.md      # human-readable notes on the crosswalk
-DATA_SOURCE.md              # detailed data provenance and government references
-PLAN.md                     # original design document
+README.md                   # this file
+LICENSE                     # MIT (code) + data attribution
+docs/                       # supporting documentation
+  DATA_SOURCE.md            #   detailed data provenance and government references
+  PLAN.md                   #   original design document
 examples/                   # a committed sample report + a small input-data slice
 output/                     # generated report (created on first run; git-ignored)
 data/                       # downloaded / cached CSV (git-ignored)

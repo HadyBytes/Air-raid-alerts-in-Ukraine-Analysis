@@ -7,7 +7,7 @@ collected by github.com/Vadimkin/ukrainian-air-raid-sirens-dataset), analyses ho
 number, timing (time of day / day of week) and duration of alerts changed over time —
 nationally and per oblast — and produces a single self-contained HTML report.
 
-See PLAN.md for the full design and DATA_SOURCE.md for the data provenance.
+See docs/PLAN.md for the full design and docs/DATA_SOURCE.md for the data provenance.
 
 Usage:
     python air_raid_analysis.py            # run the full pipeline -> HTML report
@@ -36,12 +36,12 @@ KYIV_TZ = ZoneInfo("Europe/Kyiv")
 # Official records begin on this date (first siren message in the channel).
 ANALYSIS_START = "2022-03-15"
 
-# Excluded from analysis (permanent sirens / no systemic data). See DATA_SOURCE.md.
+# Excluded from analysis (permanent sirens / no systemic data). See docs/DATA_SOURCE.md.
 # Occupied territories are excluded implicitly: they produce absent/sporadic records,
 # which we never read as "zero alerts".
 EXCLUDED_OBLASTS = ("Luhanska oblast", "Crimea", "Avtonomna Respublika Krym", "Sevastopol")
 
-# Oblast-alert logic (see README / PLAN.md). Two regimes, with oblast-level alerts taking
+# Oblast-alert logic (see README / docs/PLAN.md). Two regimes, with oblast-level alerts taking
 # precedence:
 #   1. Oblast-precedence ("oblast mode"): when the oblast itself is issuing oblast-wide
 #      alerts around time t (an oblast-level alert within OBLAST_PRECEDENCE_DAYS both before
@@ -68,7 +68,6 @@ EXPECTED_COLUMNS = ["oblast", "raion", "hromada", "level", "started_at", "finish
 REPO_ROOT = Path(__file__).resolve().parent
 DATA_DIR = REPO_ROOT / "data"
 OUTPUT_DIR = REPO_ROOT / "output"
-RAION_MAP_PATH = REPO_ROOT / "raion_to_oblast_map.csv"
 
 
 # --------------------------------------------------------------------------------------

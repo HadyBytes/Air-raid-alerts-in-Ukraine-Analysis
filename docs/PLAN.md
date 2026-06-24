@@ -35,9 +35,8 @@ labels (incl. Kyiv City). Known characteristics we handle in data prep:
 - **Timezone:** all source times are UTC → convert to Europe/Kyiv before any time-of-day / weekday logic.
 - **Granularity / mapping:** rows come at `oblast`, `raion`, or `hromada` level, but **every row already
   carries its parent `oblast`** (the source attaches it from Ukraine's official administrative hierarchy).
-  So aggregating to oblast is a group-by on the existing column — we do **not** invent a mapping.
-  We persist the observed raion→oblast crosswalk to [`raion_to_oblast_map.csv`](raion_to_oblast_map.csv)
-  / [`.md`](raion_to_oblast_map.md) (118 raions, none ambiguous) so it can be audited.
+  So aggregating to oblast is a group-by on the existing column — we do **not** invent a mapping,
+  and the analysis relies on no external raion→oblast crosswalk file.
 - **Oblast-alert definition (oblast-precedence + quorum of active raions):** because the data mixes
   oblast / raion / hromada granularity over time, we do **not** use a naive "any subdivision ⇒ whole
   oblast" union (a single stuck frontline siren would otherwise keep an entire oblast under permanent
@@ -124,13 +123,12 @@ footnotes/caveats section stating: data source (`@air_alert_ua`), **Luhansk and 
 Package for a clean, runnable GitHub repo:
 
 - `README.md` — what it does, one-command setup (`pip install -r requirements.txt`), how to run, sample
-  output. **Folds in the `DATA_SOURCE.md` note** (official source explanation), documents the
-  **raion→oblast mapping method** (linking the auditable `raion_to_oblast_map.csv`), **and explains the
-  oblast-alert quorum logic** (quorum of active raions, ±30-day active window, 50% threshold).
+  output. **Folds in the `docs/DATA_SOURCE.md` note** (official source explanation), documents how raions
+  are grouped under their parent `oblast` (directly from the source column, no external crosswalk), **and
+  explains the oblast-alert quorum logic** (quorum of active raions, ±30-day active window, 50% threshold).
 - `requirements.txt` — pinned dependencies.
 - `examples/` — a committed **example output** (`report_example.html`) and **input data example**
   (a small slice of the CSV).
-- `raion_to_oblast_map.csv` / `.md` — the auditable crosswalk, kept in the repo.
 - `.gitignore` — excludes the venv, caches, freshly downloaded data, generated reports.
 - `LICENSE` and data attribution to the source dataset and the `@air_alert_ua` channel.
 - Verify a fresh clone runs successfully assuming the user has *no* libraries pre-installed.
